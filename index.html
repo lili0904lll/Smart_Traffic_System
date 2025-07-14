@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>智能交通信号灯后台管理系统</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="login-page" class="centered">
+  <div class="login-card">
+    <h2>管理员登录</h2>
+    
+    <!-- 用户名输入 -->
+    <input id="login-username" type="text" placeholder="工号">
+    
+    <!-- 密码输入 -->
+    <input id="login-password" type="password" placeholder="密码">
+    
+    <!-- 验证码区域 -->
+    <div class="captcha-container">
+  <input id="login-captcha" type="text" placeholder="验证码" style="flex: 1; margin-right: 10px;">
+  <img id="captcha-image" src="captcha.php" alt="验证码" style="cursor: pointer;" onclick="refreshCaptcha()">
+</div>
+    
+    <!-- 登录按钮 -->
+    <button onclick="login()">登录</button>
+    
+    <!-- 错误消息 -->
+    <div id="login-error" class="error"></div>
+  </div>
+</div>
+
+
+<div id="main-page" style="display:none;">
+  <div class="sidebar">
+    <h3>管理菜单</h3>
+    <ul>
+      <li onclick="showPanel('traffic')">红绿灯管理</li>
+      <li onclick="showPanel('flow')">车流量</li>
+      <li onclick="showPanel('accident')">事故记录</li>
+      <li onclick="showPanel('user')">用户管理</li>
+      <li onclick="showPanel('operator')">工作人员管理</li>
+      <li onclick="logout()" style="color:#c00;">退出</li>
+      
+    </ul>
+  </div>
+  <div class="main-content">
+    <div class="header">
+      <span>智能交通信号灯后台管理系统</span>
+      <span id="admin-info"></span>
+    </div>
+    <div id="panel-traffic" class="panel">
+      <h2>红绿灯管理</h2>
+      <table id="traffic-table">
+        <thead>
+          <tr>
+            <th>路口</th><th>灯编号</th><th>红灯时长</th><th>绿灯时长</th><th>当前状态</th><th>操作</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div id="traffic-edit" class="modal" style="display:none;">
+        <div class="modal-content">
+          <h3>编辑红绿灯</h3>
+          <input id="edit-red" type="number" placeholder="红灯时长">
+          <input id="edit-green" type="number" placeholder="绿灯时长">
+          <select id="edit-status">
+            <option value="red">红灯</option>
+            <option value="green">绿灯</option>
+          </select>
+          <button onclick="saveTrafficEdit()">保存</button>
+          <button onclick="closeTrafficEdit()">取消</button>
+        </div>
+      </div>
+    </div>
+    <div id="panel-flow" class="panel" style="display:none;">
+      <h2>车流量</h2>
+      <label>路口: <input id="flow-intersection" type="number" min="1" max="15" value="1"></label>
+      <label>日期: <input id="flow-date" type="date"></label>
+      <button onclick="loadFlow()">查询</button>
+      <table id="flow-table">
+        <thead>
+          <tr>
+            <th>日期</th><th>小时</th><th>时段</th><th>车流量</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div id="panel-accident" class="panel" style="display:none;">
+      <h2>事故记录</h2>
+      <label>路口: <input id="accident-intersection" type="number" min="1" max="15" value="1"></label>
+      <button onclick="loadAccidents()">查询</button>
+      <table id="accident-table">
+        <thead>
+          <tr>
+            <th>日期</th><th>事故描述</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div id="panel-user" class="panel" style="display:none;">
+  <h2>用户管理</h2>
+  <button onclick="showResetPasswordDialog()" style="margin-bottom:10px;">重置用户密码</button>
+  <table id="user-table">
+    <thead>
+      <tr>
+        <th>用户名</th><th>邮箱</th><th>电话</th><th>密码</th><th>角色</th><th>注册时间</th><th>操作</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  
+  <!-- 重置密码弹窗 -->
+  <div id="reset-password-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h3>重置用户密码</h3>
+      <div>
+        <label>选择用户: 
+          <select id="reset-user-select">
+            <!-- 用户选项将通过JS动态填充 -->
+          </select>
+        </label>
+      </div>
+      <div>
+        <label>新密码: 
+          <input id="reset-password" type="password" placeholder="输入新密码">
+        </label>
+      </div>
+      <button onclick="submitPasswordReset()">确认重置</button>
+      <button onclick="closeResetPasswordModal()">取消</button>
+    </div>
+  </div>
+</div>
+
+    <div id="panel-operator" class="panel" style="display:none;">
+      <h2>工作人员管理</h2>
+      <button onclick="showAddOperator()">新增工作人员</button>
+      <table id="operator-table">
+        <thead>
+          <tr>
+            <th>工号</th><th>职位</th><th>状态</th><th>操作</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <!-- 新增/编辑弹窗 -->
+      <div id="operator-edit" class="modal" style="display:none;">
+        <div class="modal-content">
+          <h3 id="operator-edit-title">新增工作人员</h3>
+          <input id="op-employee-id" type="text" placeholder="工号">
+          <input id="op-full-name" type="text" placeholder="职位">
+          <input id="op-password" type="password" placeholder="密码">
+          <select id="op-status">
+            <option value="active">在职</option>
+            <option value="suspended">停用</option>
+          </select>
+          <button onclick="saveOperatorEdit()">保存</button>
+          <button onclick="closeOperatorEdit()">取消</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="main.js"></script>
+</body>
+</html>
