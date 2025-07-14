@@ -1,0 +1,23 @@
+<!-- pages/trafficflow/trafficflow.wxml -->
+<view class="container">
+    <view class="header">
+        <text>上月平均车流量</text>
+    </view>
+    <view class="content">
+        <view class="table">
+            <view class="row header">
+                <view class="cell">时间段</view>
+                <view class="cell">平均车流量</view>
+            </view>
+            <block wx:for="{{trafficFlowData}}" wx:key="time_period">
+                <view class="row">
+                    <view class="cell">{{item.time_period}}</view>
+                    <view class="cell">{{item.average_flow}}</view>
+                </view>
+            </block>
+        </view>
+    </view>
+</view>
+
+
+

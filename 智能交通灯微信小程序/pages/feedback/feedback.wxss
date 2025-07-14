@@ -1,0 +1,79 @@
+/* pages/feedback/feedback.wxss */
+.container {
+    position: relative;
+    min-height: 100vh;
+    background: url('/images/background.jpg') center/cover no-repeat;
+    background-size: cover;
+    background-attachment: scroll;
+    /* 新增保障性样式 */
+    background-color: rgba(255,255,255,0.5); /* 半透明白色遮罩 */
+    z-index: 2;
+}
+/* 增加图片加载检测 */
+.container::before {
+    content: '背景加载中...';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: none; /* 正常情况隐藏 */
+}
+.container[data-bg-error]::before {
+    display: block; /* 图片加载失败时显示 */
+}
+.step-nav {
+    margin-bottom: 20px;
+}
+
+.back-btn {
+    background: none;
+    color: #0b54a1;
+    border: none;
+    padding: 0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 20px 0;
+    color: #333;
+}
+
+.list {
+    height: 70vh;
+    background-color: white;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.item {
+    padding: 20rpx;
+    margin: 10rpx 0;
+    border-bottom: 1px solid #eee;
+}
+
+button {
+    width: 100%;
+    margin: 10px 0;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #0b54a1;
+    color: white;
+    border-radius: 8px;
+}
+
+button.selected {
+    background-color: #4CAF50;
+    border: none;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 20px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+}

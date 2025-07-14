@@ -1,0 +1,41 @@
+<!-- pages/index/index.wxml -->
+<view class="container">
+    <view class="header">
+        <image src="/images/background.jpg" class="background-image"></image>
+        <view class="button-group">
+            <button bindtap="goToHistory">历史路况</button>
+            <button bindtap="goToRealTime">实时信号时长</button>
+            <button bindtap="goToFeedback">用户反馈</button>
+            <button bindtap="goToControl">工作控制</button>
+            <image src="/images/user_icon.png" class="user-icon"></image>
+        </view>
+    </view>
+    <view class="sidebar">
+        <button bindtap="showAll">全局</button>
+        <block wx:for="{{intersections}}" wx:key="id">
+            <button bindtap="showIntersection" data-id="{{item.id}}">路口{{item.id}}</button>
+        </block>
+    </view>
+    <view class="monitor-area">
+        <map
+            id="trafficMap"
+            style="width: 100%; height: 100%;"
+            markers="{{markers}}"
+            bindregionchange="onMapRegionChange"
+        ></map>
+        <!-- 添加图像显示区域 -->
+        <image wx:if="{{showMapImage}}" src="{{mapImagePath}}" class="traffic-map-image"></image> 
+        <block wx:for="{{intersections}}" wx:key="id">
+            <view class="traffic-light" wx:for="{{trafficLights[item.id]}}" wx:key="light_id">
+                <view class="light" style="background-color: {{item.current_status === 'red' ? 'red' : 'green'}};"></view>
+            </view>
+        </block>
+        <block wx:for="{{ambulancePositions}}" wx:key="*this">
+            <view class="vehicle" style="background-color: blue;"></view>
+        </block>
+        <block wx:for="{{fireTruckPositions}}" wx:key="*this">
+            <view class="vehicle" style="background-color: red;"></view>
+        </block>
+    </view>
+</view>
+

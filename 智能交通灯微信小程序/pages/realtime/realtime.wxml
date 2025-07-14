@@ -1,0 +1,51 @@
+<view class="container">
+<!-- 在.container第一行添加 -->
+<image 
+    src="/images/background.jpg" 
+    style="width:100vw;height:100vh;position:fixed;top:0;left:0;z-index:-1"
+    mode="aspectFill"
+/>
+    <!-- 返回按钮 -->
+    <button bindtap="goBack" class="back-button">返回</button>
+    
+    <!-- 触发按钮 -->
+    <button bindtap="showIntersectionSelect" class="query-btn">实时信号时长</button>
+    
+    <!-- 路口选择弹窗 -->
+    <view wx:if="{{showPopup}}" class="popup-mask">
+        <view class="popup-content">
+            <view class="popup-header">选择路口</view>
+            <scroll-view scroll-y class="intersection-list">
+                <view wx:for="{{15}}" wx:key="index" 
+                      class="list-item" 
+                      bindtap="selectIntersection"
+                      data-id="{{index + 1}}">
+                    路口{{index + 1}}
+                </view>
+            </scroll-view>
+        </view>
+    </view>
+
+    <!-- 信号灯状态表格 -->
+    <view wx:if="{{selectedIntersection}}" class="signal-container">
+        <view class="section-title">路口{{selectedIntersection}} 信号状态</view>
+        
+        <!-- 信号灯表格 -->
+        <view class="signal-table">
+            <view class="table-row header">
+                <view class="cell">信号灯</view>
+                <view class="cell">当前状态</view>
+                <view class="cell">剩余时间</view>
+            </view>
+            <view class="table-row" wx:for="{{trafficLights}}" wx:key="id">
+                <view class="cell">{{item.id}}</view>
+                <view class="cell {{item.currentState}}">
+                    {{item.currentState === 'red' ? '🔴 红灯' : '🟢 绿灯'}}
+                </view>
+                <view class="cell">
+                    {{item.remainingTime}}秒
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

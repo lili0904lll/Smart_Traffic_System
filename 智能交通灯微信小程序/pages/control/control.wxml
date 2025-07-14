@@ -1,0 +1,70 @@
+<!-- pages/control/control.wxml -->
+<view class="container">
+<!-- 在.container第一行添加 -->
+<image 
+    src="/images/background.jpg" 
+    style="width:100vw;height:100vh;position:fixed;top:0;left:0;z-index:-1"
+    mode="aspectFill"
+/>
+  <!-- 登录界面 -->
+  <view wx:if="{{!isLoggedIn}}" class="login-section">
+    <input class="input" placeholder="请输入工号" value="{{workerId}}" bindinput="onWorkerIdInput"/>
+    <input class="input" password placeholder="请输入密码" value="{{password}}" bindinput="onPasswordInput"/>
+    <button class="btn" bindtap="login">登录</button>
+  </view>
+
+  <!-- 路口选择界面 -->
+  <view wx:if="{{isLoggedIn && showIntersectionSelect}}" class="intersection-select">
+    <view class="header">
+      <button class="back-btn" bindtap="goBack">‹ 返回登录</button>
+      <text class="title">请选择路口：</text>
+    </view>
+    <scroll-view scroll-y class="list">
+      <block wx:for="{{intersections}}" wx:key="id">
+        <view class="item" data-id="{{item.id}}" bindtap="selectIntersection">
+          {{item.name}}
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+
+  <!-- 控制界面 -->
+  <view wx:if="{{isLoggedIn && !showIntersectionSelect}}" class="control-section">
+    <view class="header">
+      <button class="back-btn" bindtap="goBack">‹ 返回登录</button>
+      <text class="title">当前路口：路口{{selectedIntersection}}</text>
+      <button class="switch-btn" bindtap="switchIntersection">切换路口</button>
+    </view>
+
+    <view class="table">
+      <view class="row header">
+        <view class="cell">信号灯ID</view>
+        <view class="cell">红灯时长</view>
+        <view class="cell">绿灯时长</view>
+        <view class="cell">当前状态</view>
+      </view>
+      
+      <block wx:for="{{trafficLights}}" wx:key="light_id">
+        <view class="row">
+          <view class="cell">{{item.light_id}}</view>
+          <input class="cell input" type="number" min="10" 
+                value="{{item.red_duration}}" 
+                bindinput="onRedDurationInput"
+                data-id="{{item.light_id}}"/>
+          <input class="cell input" type="number" min="10" 
+                value="{{item.green_duration}}" 
+                bindinput="onGreenDurationInput"
+                data-id="{{item.light_id}}"/>
+          <picker class="cell" mode="selector" range="{{['红灯', '绿灯']}}" 
+                value="{{item.current_status}}"
+                bindchange="onStatusChange"
+                data-id="{{item.light_id}}">
+            <view>{{item.current_status === 0 ? '红灯' : '绿灯'}}</view>
+          </picker>
+        </view>
+      </block>
+    </view>
+
+    <button class="btn save-btn" bindtap="saveChanges">保存修改</button>
+  </view>
+</view>

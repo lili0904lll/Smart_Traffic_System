@@ -1,0 +1,87 @@
+{
+    "pages": [
+        "pages/login/login",
+        "pages/register/register",
+        "pages/index/index",
+        "pages/history/history",
+        "pages/realtime/realtime",
+        "pages/feedback/feedback",
+        "pages/control/control",
+        "pages/accidents/accidents",
+        "pages/trafficflow/trafficflow",
+        "pages/peakflow/peakflow"
+      ],
+  "window": {
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "智能交通信号灯管理系统",
+    "backgroundColor": "#eeeeee",
+    "backgroundTextStyle": "light"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "主页",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home-active.png"
+      },
+      {
+        "pagePath": "pages/history/history",
+        "text": "历史路况",
+        "iconPath": "images/history.png",
+        "selectedIconPath": "images/history-active.png"
+      },
+      {
+        "pagePath": "pages/realtime/realtime",
+        "text": "实时信号",
+        "iconPath": "images/realtime.png",
+        "selectedIconPath": "images/realtime-active.png"
+      },
+      {
+        "pagePath": "pages/feedback/feedback",
+        "text": "用户反馈",
+        "iconPath": "images/feedback.png",
+        "selectedIconPath": "images/feedback-active.png"
+      },
+      {
+        "pagePath": "pages/control/control",
+        "text": "工作控制",
+        "iconPath": "images/control.png",
+        "selectedIconPath": "images/control-active.png"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 60000,
+    "downloadFile": 60000
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "为了给您展示周边交通信号灯状态和路况信息，需要获取您的位置。"
+    }
+  },
+  "requiredPrivateInfos": [
+    "getLocation"
+  ],
+  "debug": true,
+  "sitemapLocation": "sitemap.json",
+  "appid": "wx07e4e1a4ae0084d8",
+  "libVersion": "2.30.0",
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": false,
+    "postcss": true,
+    "minified": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    }
+  }
+}

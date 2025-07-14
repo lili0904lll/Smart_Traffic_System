@@ -1,0 +1,8 @@
+<!-- pages/accidents/accidents.wxml -->
+<view class="container">
+    <view class="accidents">
+        <block wx:for="{{accidents}}" wx:key="id">
+            <view>{{item.date}} - {{item.description}}</view>
+        </block>
+    </view>
+</view>

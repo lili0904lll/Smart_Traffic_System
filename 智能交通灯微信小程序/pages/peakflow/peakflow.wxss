@@ -1,0 +1,49 @@
+/* pages/peakflow/peakflow.wxss */
+.container {
+    padding: 20rpx;
+    background: #fff;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30rpx;
+  }
+  
+  .update-time {
+    font-size: 24rpx;
+    color: #666;
+  }
+  
+  .chart-container {
+    border: 1rpx solid #eee;
+    border-radius: 16rpx;
+    padding: 20rpx;
+  }
+  
+  .legend {
+    display: flex;
+    justify-content: center;
+    margin-top: 30rpx;
+    gap: 40rpx;
+  }
+  
+  .legend-item {
+    display: flex;
+    align-items: center;
+  }
+  
+  .color-block {
+    width: 30rpx;
+    height: 30rpx;
+    margin-right: 10rpx;
+  }
+  
+  .current {
+    background: #ff4d4f;
+  }
+  
+  .history {
+    background: #0b54a1;
+  }

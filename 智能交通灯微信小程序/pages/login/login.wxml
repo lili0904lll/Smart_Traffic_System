@@ -1,0 +1,29 @@
+<view class="container">
+  <input placeholder="账号" name="username" bindinput="onInput" data-field="username"/>
+  <input placeholder="密码" name="password" password bindinput="onInput" data-field="password"/>
+  
+  <!-- 验证码区域 - 直接显示在密码下方 -->
+  <view class="captcha-container">
+    <input 
+      placeholder="请输入验证码" 
+      bindinput="onInput" 
+      data-field="captchaCode"
+      style="flex: 1;"
+    />
+    <view class="captcha-display" bindtap="refreshCaptcha">
+      <image src="{{captchaImage}}" wx:if="{{captchaImage}}" mode="widthFix" />
+      <text wx:else>加载中</text>
+    </view>
+  </view>
+  
+  <button bindtap="login">登录</button>
+  
+  <!-- 隐藏的画布 -->
+  <canvas 
+    style="position: absolute; left: -999rpx; width: 120px; height: 40px;" 
+    canvas-id="captchaCanvas" 
+    id="captchaCanvas"
+  />
+  
+  <button bindtap="goToRegister">注册新用户</button>
+</view>

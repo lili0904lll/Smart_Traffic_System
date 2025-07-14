@@ -1,0 +1,61 @@
+<!-- pages/feedback/feedback.wxml -->
+<view class="container">
+<!-- 在.container第一行添加 -->
+<image 
+    src="/images/background.jpg" 
+    style="width:100vw;height:100vh;position:fixed;top:0;left:0;z-index:-1"
+    mode="aspectFill"
+/>
+    <!-- 步骤导航按钮 -->
+    <view class="step-nav" wx:if="{{selectedFeedbackType || selectedIntersection}}">
+        <button class="back-btn" bindtap="goBack">← 返回</button>
+    </view>
+
+    <!-- 第一级：选择反馈类型 -->
+    <block wx:if="{{!selectedFeedbackType}}">
+        <button bindtap="onFeedbackTypeSelect" data-type="过路口">过路口</button>
+        <button bindtap="onFeedbackTypeSelect" data-type="事故发生">事故发生</button>
+    </block>
+
+    <!-- 第二级：选择路口 -->
+    <block wx:if="{{selectedFeedbackType && !selectedIntersection}}">
+        <view class="title">选择路口</view>
+        <scroll-view scroll-y class="list">
+            <view 
+                wx:for="{{intersections}}" 
+                wx:key="id" 
+                class="item"
+                bindtap="onIntersectionSelect"
+                data-id="{{item.id}}"
+            >
+                路口{{item.id}}
+            </view>
+        </scroll-view>
+    </block>
+
+    <!-- 第三级：提交反馈 -->
+    <block wx:if="{{selectedIntersection}}">
+        <block wx:if="{{selectedIntersection && selectedFeedbackType === '过路口'}}">
+        <view class="title">选择需要延长绿灯的灯号</view>
+        <button 
+        class="{{selectedLight === 1 ? 'selected' : ''}}" 
+        bindtap="onLightSelect" 
+        data-light="1"
+        >
+        灯1（南北方向）
+        </button>
+        <button 
+        class="{{selectedLight === 2 ? 'selected' : ''}}" 
+        bindtap="onLightSelect" 
+        data-light="2"
+        >
+        灯2（东西方向）
+        </button>
+        <button bindtap="submitFeedback">提交反馈</button>
+        </block>
+        <block wx:if="{{selectedFeedbackType === '事故发生'}}">
+            <input type="text" placeholder="请输入反馈内容" bindinput="onFeedbackTextChange" />
+            <button bindtap="submitFeedback">提交反馈</button>
+        </block>
+    </block>
+</view>

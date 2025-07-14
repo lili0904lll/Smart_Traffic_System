@@ -1,0 +1,28 @@
+<view class="container">
+    <view class="header">
+        <text>前日平均车流量</text>
+        <text class="subtitle">{{date}} 数据</text>
+    </view>
+    
+    <view class="info-card">
+        <view class="info-item">
+            <text class="label">路口编号</text>
+            <text class="value">{{intersectionId}}</text>
+        </view>
+        <view class="info-item">
+            <text class="label">统计日期</text>
+            <text class="value">{{date}}</text>
+        </view>
+        <view class="info-item highlight">
+            <text class="label">平均流量</text>
+            <text class="value">{{average}} 辆/小时</text>
+        </view>
+    </view>
+
+    <view class="tip-box">
+        <image src="/images/info-icon.png" class="tip-icon"/>
+        <text class="tip-text">数据说明：该数值为当日总流量除以24小时得出的平均小时流量</text>
+    </view>
+
+    <button class="back-btn" bindtap="navigateBack">返回上级</button>
+</view>

@@ -1,0 +1,150 @@
+<!-- pages/history/history.wxml -->
+<view class="container">
+<!-- 在.container第一行添加 -->
+<image 
+    src="/images/bg1.jpg" 
+    style="width:100vw;height:100vh;position:fixed;top:0;left:0;z-index:-1"
+    mode="aspectFill"
+/>
+    <!-- 第一级：路口选择 -->
+    <view wx:if="{{!selectedIntersection}}" class="intersection-select">
+        <view class="title">选择路口</view>
+        <scroll-view scroll-y class="list">
+            <view 
+                wx:for="{{intersections}}" 
+                wx:key="id" 
+                class="item"
+                bindtap="selectIntersection"
+                data-id="{{item.id}}"
+            >
+                路口{{item.id}}
+            </view>
+        </scroll-view>
+    </view>
+
+    <!-- 第二级：查询类型选择 -->
+    <view wx:if="{{selectedIntersection && !selectedQueryType}}" class="query-select">
+        <view class="title">路口{{selectedIntersection}} - 选择查询类型</view>
+        <button bindtap="selectQueryType" data-type="accident">事故记录</button>
+        <button bindtap="selectQueryType" data-type="avgFlow">平均车流量</button>
+        <button bindtap="selectQueryType" data-type="peakFlow">车流高峰</button>
+        <button bindtap="goBack" class="back-btn">返回</button>
+    </view>
+
+    <!-- 第三级：数据显示 -->
+    <!-- 事故记录 -->
+    <view wx:if="{{selectedQueryType === 'accident'}}" class="data-view">
+    <view class="title">事故记录（路口{{selectedIntersection}}）</view>
+    <view class="record-header">
+        <text class="header-cell">日期</text>
+        <text class="header-cell">事件描述</text>
+    </view>
+    <scroll-view scroll-y class="record-list">
+        <view wx:for="{{accidentRecords}}" wx:key="id" class="record-item">
+            <text class="record-date">{{item.date}}</text>
+            <text class="record-desc">{{item.description}}</text>
+        </view>
+        <view wx:if="{{accidentRecords.length === 0}}" class="no-data">
+            <image src="/images/no-data.png" class="no-data-img"></image>
+            <text>该路口暂无事故记录</text>
+        </view>
+    </scroll-view>
+    <button bindtap="goBackToQueryType" class="back-btn">返回上级</button>
+</view>
+
+    <!-- 平均车流量 -->
+    <view wx:if="{{selectedQueryType === 'avgFlow'}}" class="data-view">
+        <view class="title">昨日平均车流量</view>
+        <view class="flow-value">{{avgFlow}} 辆/小时</view>
+        <button bindtap="goBackToQueryType" class="back-btn">返回</button>
+    </view>
+
+    <!-- 车流高峰 -->
+    <view wx:if="{{selectedQueryType === 'peakFlow'}}" class="data-view">
+        <view class="title">路口{{selectedIntersection}} - 车流高峰分析</view>
+        
+        <!-- 上半部分表格 -->
+        <view class="section-header">
+            <image src="/images/table-icon.png" class="section-icon"></image>
+            <text>高峰时段统计数据</text>
+        </view>
+        <view class="peak-table">
+            <view class="table-header">
+                <view class="header-cell">时间段</view>
+                <view class="header-cell">流量(辆/小时)</view>
+            </view>
+            <view class="table-row" wx:for="{{peakFlows}}" wx:key="id">
+                <view class="table-cell">{{item.time_period}}</view>
+                <view class="table-cell">{{item.flow_count}}</view>
+            </view>
+        </view>
+        <!-- 导出功能区域 -->
+        <view class="export-section">
+        <view class="date-range">
+        <picker mode="date" value="{{exportStartDate}}" bindchange="onStartDateChange">
+        <view class="picker">开始日期：{{exportStartDate || '请选择'}}</view>
+        </picker>
+        <picker mode="date" value="{{exportEndDate}}" bindchange="onEndDateChange">
+            <view class="picker">结束日期：{{exportEndDate || '请选择'}}</view>
+        </picker>
+    </view>
+    <button bindtap="exportExcel" class="export-btn">导出Excel</button>
+    <button bindtap="exportChart" class="export-btn">导出折线图</button>
+</view>
+
+        <!-- 下半部分：折线图 -->
+        <view class="section-header">
+            <image src="/images/chart-icon.png" class="section-icon"></image>
+            <text>流量趋势可视化</text>
+        </view>
+        <view class="chart-container">
+            <!-- 新增说明标签（固定在图表右上角） -->
+            <view class="chart-legend">
+                <view class="legend-item">
+                    <view class="legend-color" style="background:#1989fa"></view>
+                    <text>每日车流量</text>
+                </view>
+                <text class="chart-note">数据更新：{{updateTime}}</text>
+            </view>
+            
+            <!-- 图表容器（尺寸动态绑定） -->
+            <canvas 
+                canvas-id="peakFlowChart" 
+                class="chart"
+                style="width:{{canvasWidth}}px;height:{{canvasHeight}}px"
+            ></canvas>
+            
+            <!-- X轴单位说明 -->
+            <view class="axis-label">日期</view>
+            <!-- Y轴单位说明 -->
+            <view class="axis-label y-axis">车流量（辆/小时）</view>
+        </view>
+
+        <!-- 操作按钮组 -->
+        <view class="action-buttons">
+            <button bindtap="goBackToQueryType" class="back-btn">
+                <image src="/images/back-icon.png" class="btn-icon"></image>
+                <text>返回</text>
+            </button>
+            <button bindtap="refreshChart" class="refresh-btn">
+                <image src="/images/refresh-icon.png" class="btn-icon"></image>
+                <text>刷新数据</text>
+            </button>
+            </view>
+            <view class="date-picker">
+            <picker 
+            mode="date" 
+            fields="day" 
+            value="{{selectedDate}}" 
+            start="{{dateOptions[dateOptions.length-1]}}" 
+            end="{{dateOptions[0]}}"
+            bindchange="handleDateChange"
+             >
+             <view class="date-display">
+             {{selectedDate || '选择日期'}}
+             <image src="/images/calendar.png" class="calendar-icon"/>
+             </view>
+             </picker>
+             </view>
+    </view>
+</view>

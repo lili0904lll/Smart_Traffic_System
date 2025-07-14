@@ -1,0 +1,29 @@
+<!-- pages/peakflow/peakflow.wxml -->
+<view class="container">
+  <view class="header">
+    <text>路口{{selectedNode}}实时车流</text>
+    <text class="update-time">更新于: {{updateTime}}</text>
+  </view>
+  
+  <!-- 图表容器 -->
+  <view class="chart-container">
+    <canvas 
+      canvas-id="realtimeChart" 
+      style="width:{{canvasWidth}}px;height:{{canvasHeight}}px"
+      bindtouchstart="touchHandler"
+      bindtouchmove="touchHandler"
+    ></canvas>
+  </view>
+
+  <!-- 图例 -->
+  <view class="legend">
+    <view class="legend-item">
+      <view class="color-block current"></view>
+      <text>当前时段</text>
+    </view>
+    <view class="legend-item">
+      <view class="color-block history"></view>
+      <text>历史数据</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,151 @@
+/* pages/control/control.wxss */
+.container {
+    position: relative;
+    min-height: 100vh;
+    background: url('/images/background.jpg') center/cover no-repeat;
+    background-size: cover;
+    background-attachment: scroll;
+    /* 新增保障性样式 */
+    background-color: rgba(255,255,255,0.5); /* 半透明白色遮罩 */
+    z-index: 2;
+}
+/* 增加图片加载检测 */
+.container::before {
+    content: '背景加载中...';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: none; /* 正常情况隐藏 */
+}
+.container[data-bg-error]::before {
+    display: block; /* 图片加载失败时显示 */
+}
+  
+  /* 登录界面 */
+  .login-section {
+    padding: 40rpx;
+    margin: 40rpx;
+    background: white;
+    border-radius: 16rpx;
+    box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.1);
+  }
+  
+  .input {
+    height: 88rpx;
+    margin: 30rpx 0;
+    padding: 0 32rpx;
+    border: 2rpx solid #eee;
+    border-radius: 12rpx;
+    font-size: 32rpx;
+  }
+  
+  .btn {
+    height: 88rpx;
+    line-height: 88rpx;
+    margin-top: 60rpx;
+    background: #0b54a1;
+    color: white;
+    border-radius: 12rpx;
+    font-size: 34rpx;
+    font-weight: bold;
+  }
+  
+  /* 头部通用样式 */
+  .header {
+    display: flex;
+    align-items: center;
+    padding: 24rpx 32rpx;
+    background: white;
+    border-bottom: 2rpx solid #f0f0f0;
+  }
+  
+  .back-btn {
+    padding: 0 20rpx;
+    font-size: 28rpx;  /* 调小字体大小 */
+    color: #0b54a1;
+    background: none;
+    line-height: 1.2;
+    border: 1rpx solid #0b54a1;
+    border-radius: 8rpx;
+  }
+  
+  .title {
+    flex: 1;
+    text-align: center;
+    font-size: 34rpx;
+    font-weight: 500;
+  }
+  
+  .switch-btn {
+    padding: 0 32rpx;
+    height: 72rpx;
+    line-height: 72rpx;
+    background: #0b54a1;
+    color: white;
+    border-radius: 40rpx;
+    font-size: 28rpx;
+  }
+  
+  /* 表格样式 */
+  .table {
+    margin: 32rpx;
+    background: white;
+    border-radius: 16rpx;
+    overflow: hidden;
+    box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.05);
+  }
+  
+  .row {
+    display: flex;
+    align-items: center;
+    padding: 28rpx 0;
+    border-bottom: 2rpx solid #f5f5f5;
+  }
+  
+  .header.row {
+    background: #f8f8f8;
+    font-weight: 500;
+  }
+  
+  .cell {
+    flex: 1;
+    padding: 0 20rpx;
+    text-align: center;
+    font-size: 30rpx;
+  }
+  
+  .cell.input {
+    height: 72rpx;
+    border: 2rpx solid #eee;
+    border-radius: 8rpx;
+    margin: 0 16rpx;
+    padding: 0 20rpx;
+    font-size: 28rpx;
+  }
+  
+  .save-btn {
+    margin: 60rpx 32rpx;
+  }
+  
+  /* 路口选择界面 */
+  .intersection-select {
+    background: white;
+    height: 100vh;
+  }
+  
+  .list {
+    height: calc(100vh - 120rpx);
+    padding: 0 32rpx;
+  }
+  
+  .item {
+    padding: 32rpx;
+    border-bottom: 2rpx solid #f5f5f5;
+    font-size: 32rpx;
+    transition: background 0.3s;
+  }
+  
+  .item:active {
+    background: #f8f8f8;
+  }

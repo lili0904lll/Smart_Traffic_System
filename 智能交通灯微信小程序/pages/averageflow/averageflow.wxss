@@ -1,0 +1,85 @@
+.container {
+    padding: 30rpx;
+    background-color: #f8f8f8;
+    min-height: 100vh;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 40rpx;
+}
+
+.header text {
+    display: block;
+    font-size: 36rpx;
+    font-weight: bold;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 28rpx;
+    margin-top: 10rpx;
+}
+
+.info-card {
+    background: white;
+    border-radius: 16rpx;
+    padding: 30rpx;
+    margin: 20rpx 0;
+    box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.08);
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 25rpx 0;
+    border-bottom: 1rpx solid #eee;
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.label {
+    color: #666;
+    font-size: 30rpx;
+}
+
+.value {
+    color: #333;
+    font-weight: bold;
+}
+
+.highlight .value {
+    color: #0b54a1;
+    font-size: 36rpx;
+}
+
+.tip-box {
+    display: flex;
+    align-items: center;
+    padding: 25rpx;
+    background: #e6f3ff;
+    border-radius: 12rpx;
+    margin-top: 40rpx;
+}
+
+.tip-icon {
+    width: 40rpx;
+    height: 40rpx;
+    margin-right: 20rpx;
+}
+
+.tip-text {
+    color: #0b54a1;
+    font-size: 26rpx;
+    flex: 1;
+}
+
+.back-btn {
+    margin-top: 60rpx;
+    background: #0b54a1;
+    color: white;
+    border-radius: 50rpx;
+    font-size: 32rpx;
+}

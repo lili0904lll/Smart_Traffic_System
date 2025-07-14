@@ -1,0 +1,385 @@
+/* pages/history/history.wxss */
+
+/* 修改.container全局背景 */
+
+.container {
+    position: relative;
+    min-height: 100vh;
+    background: url('/images/bg1.jpg') center/cover no-repeat;
+    background-size: cover;
+    background-attachment: scroll;
+    /* 新增保障性样式 */
+    background-color: rgba(255,255,255,0.5); /* 半透明白色遮罩 */
+    z-index: 2;
+}
+/* 增加图片加载检测 */
+.container::before {
+    content: '背景加载中...';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: none; /* 正常情况隐藏 */
+}
+.container[data-bg-error]::before {
+    display: block; /* 图片加载失败时显示 */
+}
+
+  
+  .title {
+    font-size: 36rpx;
+    text-align: center;
+    margin: 30rpx 0;
+    font-weight: bold;
+  }
+  
+  /* 路口选择样式 */
+/* 列表区域添加半透明遮罩 */
+.list {
+    height: 80vh;
+    background: rgba(255,255,255,0.85); /* 新增半透明背景 */
+    border-radius: 12rpx;
+    overflow: hidden; /* 确保圆角效果 */
+}
+/* 列表项添加装饰性背景 */
+.item {
+    padding: 30rpx;
+    margin: 15rpx 0;
+    background: #fff url('/images/bg1.jpg') right bottom/80rpx no-repeat; /* 复合背景 */
+    border-radius: 8rpx;
+    box-shadow: 0 2rpx 6rpx rgba(0,0,0,0.05); /* 提升可读性 */
+    font-weight: bold;
+}
+
+
+  
+  /* 数据展示样式 */
+  .data-view {
+    padding: 20rpx;
+  }
+  .record {
+    display: flex;
+    flex-direction: column;
+    padding: 20rpx;
+    margin-bottom: 20rpx;
+    background: #fff;
+  }
+  .time {
+    color: #f00;
+    font-size: 28rpx;
+  }
+  .flow-value {
+    font-size: 48rpx;
+    text-align: center;
+    margin: 50rpx;
+    color: white;
+  }
+  .table {
+    background: #fff;
+    border-radius: 8rpx;
+  }
+  .row {
+    display: flex;
+    padding: 20rpx;
+    border-bottom: 1rpx solid #eee;
+  }
+  .row text {
+    flex: 1;
+    text-align: center;
+  }
+  .header {
+    font-weight: bold;
+    background: #f5f5f579;
+  }
+  .back-btn {
+    margin-top: 40rpx;
+    background: #f0f1f0d8;  
+    color: black;        /* 白色文字 */
+    font-weight: bold;   /* 加粗 */
+    border-radius: 8rpx; /* 圆角 */
+    box-shadow: 0 2rpx 6rpx rgba(0,0,0,0.1); /* 轻微阴影 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  /* ================= 新增：车流高峰专属样式 ================= */
+  /* 表格增强样式 */
+  .peak-table {
+    background: #fff;
+    border-radius: 12rpx;
+    margin: 20rpx 0;
+    box-shadow: 0 2rpx 6rpx #5f23c01a;
+    overflow: hidden; /* 防止圆角被内部元素破坏 */
+  }
+  
+  .table-header {
+    display: flex;
+    background: #f5f5f5;
+    font-weight: bold;
+  }
+  
+  .table-row {
+    display: flex;
+    border-bottom: 1rpx solid #eee;
+  }
+  
+  .table-row:last-child {
+    border-bottom: none;
+  }
+  
+  .header-cell, .table-cell {
+    flex: 1;
+    padding: 20rpx;
+    text-align: center;
+    font-size: 28rpx;
+  }
+  
+  /* 图表容器样式 */
+  .chart-title {
+    font-size: 32rpx;
+    color: #0b54a1;
+    margin: 40rpx 0 15rpx;
+    padding-left: 15rpx;
+    border-left: 6rpx solid #0b54a1;
+  }
+  
+  /* 修改chart-container样式 */
+  .chart-container {
+    width: 100%;
+    height: 500rpx; /* 增加高度 */
+    background: #fff;
+    border-radius: 12rpx;
+    padding: 30rpx 20rpx; /* 增加内边距 */
+    box-sizing: border-box;
+    margin: 20rpx 0;
+  }
+  
+  /* 新增坐标轴标签样式 */
+  .chart-label {
+    font-size: 24rpx;
+    color: #666;
+  }
+  /* ===== 新增图表相关样式 ===== */
+  .section-header {
+    display: flex;
+    align-items: center;
+    margin: 30rpx 0 15rpx;
+    font-size: 30rpx;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .section-icon {
+    width: 40rpx;
+    height: 40rpx;
+    margin-right: 15rpx;
+    
+  }
+  
+  .chart-legend {
+    position: absolute;
+    top: 20rpx;
+    right: 20rpx;
+    z-index: 10;
+    background: rgba(255,255,255,0.9);
+    padding: 15rpx;
+    border-radius: 8rpx;
+    box-shadow: 0 2rpx 6rpx rgba(0,0,0,0.1);
+  }
+  
+  .legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10rpx;
+  }
+  
+  .legend-color {
+    width: 30rpx;
+    height: 30rpx;
+    border-radius: 4rpx;
+    margin-right: 10rpx;
+  }
+  
+  .chart-note {
+    font-size: 24rpx;
+    color: #999;
+    display: block;
+    text-align: right;
+  }
+  
+  .axis-label {
+    position: absolute;
+    font-size: 24rpx;
+    color: #666;
+    bottom: 10rpx;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .y-axis {
+    transform: rotate(-90deg);
+    transform-origin: left;
+    left: 15rpx;
+    bottom: auto;
+    top: 50%;
+  }
+  
+  .action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40rpx;
+  }
+  
+  .btn-icon {
+    width: 32rpx;
+    height: 32rpx;
+    margin-right: 10rpx;
+    vertical-align: middle;
+  }
+  .record-header {
+    display: flex;
+    padding: 20rpx;
+    background: #f5f5f5;
+    font-weight: bold;
+}
+
+.header-cell {
+    flex: 1;
+    text-align: center;
+}
+
+.record-list {
+    max-height: 60vh;
+    margin-bottom: 30rpx;
+}
+
+.record-item {
+    display: flex;
+    padding: 30rpx;
+    border-bottom: 1rpx solid #eee;
+    background: #fff;
+}
+
+.record-date {
+    flex: 1;
+    color: #666;
+    font-size: 28rpx;
+    text-align: center;
+}
+
+.record-desc {
+    flex: 2;
+    padding-left: 30rpx;
+    color: #333;
+}
+
+.no-data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 100rpx 0;
+}
+
+/* 无数据提示图片调整 */
+.no-data-img {
+    width: 200rpx;
+    height: 200rpx;
+    margin-bottom: 30rpx;
+    opacity: 0.8; /* 提高可见性 */
+}
+.date-picker {
+    margin: 20rpx 0;
+    text-align: center;
+  }
+  
+  .date-display {
+    display: inline-flex;
+    align-items: center;
+    padding: 10rpx 30rpx;
+    border: 1rpx solid #ddd;
+    border-radius: 50rpx;
+  }
+  
+  .calendar-icon {
+    width: 30rpx;
+    height: 30rpx;
+    margin-left: 15rpx;
+  }
+  
+  .chart-container {
+    position: relative;
+    margin-top: 40rpx;
+    padding: 20rpx;
+    background: #fff;
+    border-radius: 16rpx;
+    box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.05);
+  }
+/* 查询类型选择按钮统一设置 */
+button[data-type] {
+    margin: 20rpx 0;
+    width: 80%;
+    border-radius: 50rpx;
+    transition: all 0.3s;
+}
+
+/* 事故记录按钮 */
+button[data-type="accident"] {
+    background-color: red !important; /* 警示红 */
+    color: white;
+    border: 2rpx solid red;
+    font-weight: bold;
+}
+
+/* 平均车流量按钮 */
+button[data-type="avgFlow"] {
+    background-color: white !important; 
+    color: black;
+    border: 2rpx solid white;
+    font-weight: bold;
+}
+
+/* 车流高峰按钮 */
+button[data-type="peakFlow"] {
+    background-color: white !important; /* 科技蓝 */
+    color: black;
+    border: 2rpx solid white;
+    font-weight: bold;
+}
+
+/* 按钮点击态 */
+button[data-type]:active {
+    opacity: 0.9;
+    transform: scale(0.98);
+}
+
+/* 文字加粗 */
+button[data-type] text {
+    font-weight: bold;
+}
+.export-section {
+    margin: 30rpx 0 0 0;
+    padding: 20rpx;
+    background: #f7fafd;
+    border-radius: 12rpx;
+    box-shadow: 0 2rpx 6rpx rgba(0,0,0,0.04);
+}
+.date-range {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20rpx;
+}
+.picker {
+    padding: 10rpx 30rpx;
+    border: 1rpx solid #ddd;
+    border-radius: 50rpx;
+    background: #fff;
+    margin-right: 20rpx;
+}
+.export-btn {
+    margin: 10rpx 10rpx 0 0;
+    background: #1989fa;
+    color: #fff;
+    border-radius: 50rpx;
+    font-size: 28rpx;
+    padding: 16rpx 0;
+}

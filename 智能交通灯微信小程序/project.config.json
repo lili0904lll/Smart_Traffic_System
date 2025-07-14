@@ -1,0 +1,36 @@
+{
+  "description": "项目配置文件",
+  "miniprogramRoot": "",
+  "cloudfunctionRoot": "cloudfunctions/",
+  "compileType": "miniprogram",
+  "appid": "wx07e4e1a4ae0084d8",
+  "projectname": "智能交通信号灯管理系统",
+  "libVersion": "3.7.12",
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": false,
+    "cloud": true,
+    "nodeModules": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "showShadowRootInWxmlPanel": false,
+    "packNpmRelationList": [],
+    "compileHotReLoad": false,
+    "minifyWXML": true
+  },
+  "condition": {},
+  "editorSetting": {
+    "tabIndent": "insertSpaces",
+    "tabSize": 2
+  }
+}

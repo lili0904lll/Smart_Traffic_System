@@ -1,0 +1,7 @@
+<view class="container">
+  <input placeholder="账号" name="username" bindinput="onInput" data-field="username"/>
+  <input placeholder="密码" name="password" password bindinput="onInput" data-field="password"/>
+  <input placeholder="邮箱" name="email" bindinput="onInput" data-field="email"/>
+  <input placeholder="电话" name="phone" bindinput="onInput" data-field="phone"/>
+  <button bindtap="register">注册</button>
+</view>
